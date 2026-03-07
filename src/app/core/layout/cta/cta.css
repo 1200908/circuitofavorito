@@ -1,0 +1,55 @@
+/* CTA Section */
+.cta-section {
+  padding: 5rem 5%;
+  text-align: center;
+  background: color-mix(in srgb, var(--primary-color) 8%, white);
+  border-radius: 18px;
+  max-width: 1200px;
+  text-align: center;
+  margin: 20px auto;
+
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  color: var(--text-color);
+
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 1rem 3rem;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .btn {
+    margin-bottom: 20px;
+  }
+  .cta-section {
+    margin: 10px 10px 10px 10px; /* margem top 10px, right 0, bottom 10px, left 10px */
+    padding: 3rem 5%;         /* padding menor no topo e nas laterais */
+  }
+}

@@ -1,0 +1,48 @@
+<div class="project-detail" *ngIf="projeto">
+
+  <!-- Voltar -->
+  <a class="back-link" style="cursor: pointer" routerLink="/projetos">← Todos os Projectos</a>
+
+  <!-- Header -->
+  <div class="detail-header">
+    <span class="badge" [ngClass]="projeto.estado">
+      {{ projeto.estado === 'concluida' ? '✔ Concluída' : '🔧 Em Curso' }}
+    </span>
+
+    <h1>{{ projeto.titulo }}
+      <span *ngIf="projeto.subtitulo"> — {{ projeto.subtitulo }}</span>
+    </h1>
+
+    <div class="meta">
+      <span>📍 {{ projeto.localizacao }}</span>
+      <span>📅 {{ projeto.data }}</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Imagem -->
+  <img class="detail-image" [src]="projeto.imagem" [alt]="projeto.titulo" />
+
+  <!-- Descrição -->
+  <p>{{ projeto.descricao }}</p>
+
+  <!-- Info card -->
+  <div class="info-card">
+    <div class="info-item">
+      <span class="info-label">Localização</span>
+      <span class="info-value">{{ projeto.localizacao }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Ano</span>
+      <span class="info-value">{{ projeto.data }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Estado</span>
+      <span class="info-value">{{ projeto.estado === 'concluida' ? 'Concluída' : 'Em Curso' }}</span>
+    </div>
+  </div>
+
+</div>
+
+<app-cta></app-cta>

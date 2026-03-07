@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family:  'DM Sans','Montserrat', 'Arial', sans-serif;
+}
+
+
+:root {
+  --primary-color: rgb(7, 39, 123);      /* azul principal */
+  --secondary-color: #6c757d;    /* cinza secundário */
+  --success-color: #28a745;      /* verde */
+  --error-color: #dc3545;        /* vermelho */
+  --background-color: rgb(255, 255, 255);   /* fundo */
+  --text-color: #000;         /* texto padrão */
+    --primary: rgba(7, 39, 123, 0);
+    --accent:    #e07b2a;
+    --steel:     #b0bec5;
+    --bg: rgba(14, 21, 32, 0);
+    --text:      #e8eaf6;
+
+}
+
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+  transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto; /* Remove a dica após a animação */
+}
+
+.page-background {
+  /* Fundo com logo/pattern */
+  background-image: url('/assets/fundo.png'); /* caminho da tua imagem */
+  background-size: 1600px ;               /* ajusta o tamanho do logo */
+  background-color: var(--background-color); /* cor de fallback */
+}

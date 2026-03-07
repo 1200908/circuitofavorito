@@ -1,0 +1,282 @@
+/* =============================================
+   ABOUT PAGE — CSS REORGANIZADO E HARMONIZADO
+   ============================================= */
+.about-frame {
+  border-radius: 15px;         /* bordas arredondadas */
+  padding: 20px;               /* espaço interno */
+  max-width: 1200px;           /* largura máxima opcional */
+  margin: 50px auto;           /* centralizar na página */
+}
+
+.frame-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;                   /* espaçamento entre as seções internas */
+}
+
+/* Hero Section */
+.about-hero {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.5);
+  border-radius: 15px;         /* bordas arredondadas */
+
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  animation: fadeInUp 0.8s ease both;
+}
+
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Content Section (único wrapper) ---- */
+.about-content {
+  padding: 5rem 5%;
+}
+
+.content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* ---- Secções genéricas ---- */
+.about-section {
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.about-section p {
+  font-size: 1.15rem;
+  color: var(--text-color);
+  line-height: 1.9;
+}
+
+/* ---- Intro ---- */
+.intro-section p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* ---- Missão ---- */
+.highlight {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.mission-item {
+  padding: 2rem 1.5rem;
+  background: rgba(7, 39, 123, 0.08);
+  border: 1px solid rgba(7, 39, 123, 0.15);
+  border-radius: 16px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.mission-item:hover {
+  transform: translateY(-6px);
+  background: rgba(7, 39, 123, 0.15);
+}
+
+.mission-item .icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.mission-item h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.6rem;
+}
+
+.mission-item p {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* ---- Stats ---- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background: rgba(7, 39, 123, 0.08);
+  border: 1px solid rgba(7, 39, 123, 0.15);
+  border-radius: 16px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-6px);
+  background: rgba(7, 39, 123, 0.15);
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: 0.4rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 768px) {
+  .about-hero {
+    height: 260px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .about-content {
+    padding: 3rem 5%;
+  }
+
+  .content-wrapper {
+    gap: 3rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .highlight {
+    padding: 2rem 1.5rem;
+  }
+
+  .mission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-content {
+    padding: 2rem 1rem;
+  }
+
+  .content-wrapper {
+    gap: 2.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+  }
+
+  .stat-item {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+  transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto; /* Remove a dica após a animação */
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

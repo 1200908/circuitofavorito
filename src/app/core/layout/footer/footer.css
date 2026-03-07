@@ -1,0 +1,47 @@
+.footer {
+  position: relative;       /* necessário para o absolute da logo */
+  padding: 2rem 1rem 2rem;  /* mais espaço em cima para a logo flutuar */
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  border-top: 1px solid rgba(0,0,0,0.2);
+
+}
+
+/* Logo oval flutuante */
+.footer-logo-top {
+  position: absolute;
+  top: -66px;               /* sobe sobre o footer */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+
+.footer-logo-top .footer-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Redes sociais */
+.footer-social {
+  margin-top: 40px;  /* dá espaço suficiente abaixo da logo */
+  margin-bottom: 20px;
+}
+
+.footer-social a {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: var(--text-color);
+  transform: scale(1.2);
+}
+
+.footer-bottom{
+  color: #07277b;
+}

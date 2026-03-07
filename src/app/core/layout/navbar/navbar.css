@@ -1,0 +1,162 @@
+.navbar-placeholder {
+  height: 20px; /* mesma altura do navbar */
+  background: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .8rem 5%;
+  background: #ffffff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+
+.navbar-image {
+  margin-top: 1rem;
+  height: 40px;
+  width: auto;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo-text span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.logo-text span:hover {
+  transform: translateY(-3px);
+}
+
+
+.logo-subtitle {
+  font-size: 0.7rem;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 30px;
+  cursor: pointer;
+
+
+}
+
+.nav-links a {
+  color: #07277b;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #0e35e5, #8b9bb7, #e8eeec);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+
+.social-links {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.social-links a {
+  color: #07277b;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #000000;
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-placeholder {
+    height: 120px; /* mesma altura do navbar */
+
+  }
+  .navbar {
+    padding: .5rem 5%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .navbar a{
+    margin-right: 10px;
+  }
+
+  .logo-text{
+  margin-left:40px;
+  }
+
+  .nav-links {
+    gap: 1.1rem;
+    margin-right: 10px;
+    cursor: auto;
+  }
+
+  .social-links {
+    gap: 1.5rem;
+    margin-right: -10px;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-links {
+    gap: .6rem;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+}

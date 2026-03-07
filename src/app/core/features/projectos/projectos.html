@@ -1,0 +1,88 @@
+<section class="projetos-hero">
+  <div class="hero-content">
+    <h1>Projectos</h1>
+    <p>Conheça o nosso portefólio de obras</p>
+  </div>
+</section>
+
+<section class="projetos-page">
+  <div class="page-wrapper">
+
+    <!-- Barra de pesquisa + filtros -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="Pesquisar por nome ou localização..."
+          [(ngModel)]="search"
+          (ngModelChange)="aplicarFiltros()"
+        />
+      </div>
+
+      <div class="filters">
+        <button
+          [class.active]="estadoAtivo === 'todos'"
+          (click)="setEstado('todos')"
+        >
+          Todos <span class="count">{{ total }}</span>
+        </button>
+        <button
+          [class.active]="estadoAtivo === 'em-curso'"
+          (click)="setEstado('em-curso')"
+        >
+          Em Curso <span class="count">{{ emCurso }}</span>
+        </button>
+        <button
+          [class.active]="estadoAtivo === 'concluida'"
+          (click)="setEstado('concluida')"
+        >
+          Concluídas <span class="count">{{ concluidas }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Resultados -->
+    <p class="results-label" *ngIf="filtered.length > 0">
+      {{ filtered.length }} projecto{{ filtered.length !== 1 ? 's' : '' }} encontrado{{ filtered.length !== 1 ? 's' : '' }}
+    </p>
+
+    <!-- Grid -->
+    <div class="projects-grid" *ngIf="filtered.length > 0; else empty">
+      <div
+        class="project-card"
+        *ngFor="let projeto of filtered"
+        [routerLink]="['/projetos', projeto.id]"
+      >
+        <div class="card-image">
+          <img [src]="projeto.imagem" [alt]="projeto.titulo" />
+          <span class="badge" [ngClass]="projeto.estado">
+            {{ projeto.estado === 'concluida' ? '✔ Concluída' : '🔧 Em Curso' }}
+          </span>
+        </div>
+        <div class="card-body">
+          <h3>{{ projeto.titulo }}
+            <span *ngIf="projeto.subtitulo"> — {{ projeto.subtitulo }}</span>
+          </h3>
+          <div class="meta">
+            <span>📍 {{ projeto.localizacao }}</span>
+            <span>📅 {{ projeto.data }}</span>
+          </div>
+          <p class="desc">{{ projeto.descricao }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sem resultados -->
+    <ng-template #empty>
+      <div class="empty-state">
+        <span>🔎</span>
+        <p>Nenhum projecto encontrado.</p>
+        <button (click)="search = ''; setEstado('todos')">Limpar filtros</button>
+      </div>
+    </ng-template>
+
+  </div>
+</section>
+
+<app-cta></app-cta>
