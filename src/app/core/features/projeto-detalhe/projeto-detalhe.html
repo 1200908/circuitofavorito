@@ -1,48 +1,122 @@
-<div class="project-detail" *ngIf="projeto">
+<section class="page-background">
 
-  <!-- Voltar -->
-  <a class="back-link" style="cursor: pointer" routerLink="/projetos">← Todos os Projectos</a>
+  <div class="project-detail" *ngIf="projeto">
 
-  <!-- Header -->
-  <div class="detail-header">
-    <span class="badge" [ngClass]="projeto.estado">
-      {{ projeto.estado === 'concluida' ? '✔ Concluída' : '🔧 Em Curso' }}
-    </span>
+    <!-- Voltar -->
+    <a class="back-link" routerLink="/projetos">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Todos os Projectos
+    </a>
 
-    <h1>{{ projeto.titulo }}
-      <span *ngIf="projeto.subtitulo"> — {{ projeto.subtitulo }}</span>
-    </h1>
-
-    <div class="meta">
-      <span>📍 {{ projeto.localizacao }}</span>
-      <span>📅 {{ projeto.data }}</span>
+    <!-- Header -->
+    <div class="detail-header">
+      <span class="badge" [ngClass]="projeto.estado">
+        <span class="badge-dot"></span>
+        {{ projeto.estado === 'concluida' ? 'Concluída' : 'Em Curso' }}
+      </span>
+      <h1>{{ projeto.titulo }}</h1>
+      <p class="subtitle" *ngIf="projeto.subtitulo">{{ projeto.subtitulo }}</p>
+      <div class="meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          {{ projeto.localizacao }}
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          {{ projeto.data }}
+        </span>
+      </div>
     </div>
+
+    <hr class="divider" />
+
+    <!-- Imagem principal -->
+    <div class="detail-image-wrapper" (click)="abrirLightbox(0)">
+      <img class="detail-image" [src]="todasImagens[0]" [alt]="projeto.titulo" loading="lazy" />
+      <div class="detail-image-hint" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="detail-thumbs" *ngIf="todasImagens.length > 1">
+      <button
+        class="thumb-btn"
+        *ngFor="let img of todasImagens; let i = index"
+        (click)="abrirLightbox(i)"
+        [attr.aria-label]="'Ver foto ' + (i + 1)"
+      >
+        <img [src]="img" [alt]="projeto.titulo + ' ' + (i + 1)" loading="lazy" />
+      </button>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" *ngIf="lightboxAberto"
+         (click)="fecharLightbox()"
+         (touchstart)="onTouchStart($event)"
+         (touchend)="onTouchEnd($event)"
+    >
+      <button class="lightbox-close" (click)="fecharLightbox()" aria-label="Fechar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <button class="lightbox-nav prev" (click)="$event.stopPropagation(); navLightbox(-1)" aria-label="Anterior" *ngIf="todasImagens.length > 1">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <img
+        [src]="todasImagens[lightboxIndex]"
+        [alt]="projeto.titulo"
+        (click)="$event.stopPropagation()"
+        class="lightbox-img"
+      />
+      <button class="lightbox-nav next" (click)="$event.stopPropagation(); navLightbox(1)" aria-label="Seguinte" *ngIf="todasImagens.length > 1">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+      <span class="lightbox-counter" *ngIf="todasImagens.length > 1">
+        {{ lightboxIndex + 1 }} / {{ todasImagens.length }}
+      </span>
+    </div>
+
+    <!-- Descrição -->
+    <div class="detail-body">
+      <p>{{ projeto.descricao }}</p>
+    </div>
+
+    <!-- Info card -->
+    <div class="info-card">
+      <div class="info-item">
+        <span class="info-label">Localização</span>
+        <span class="info-value">{{ projeto.localizacao }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Ano</span>
+        <span class="info-value">{{ projeto.data }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Estado</span>
+        <span class="info-value" [ngClass]="'estado-' + projeto.estado">
+          {{ projeto.estado === 'concluida' ? 'Concluída' : 'Em Curso' }}
+        </span>
+      </div>
+    </div>
+
   </div>
 
-  <hr class="divider" />
+  <app-cta></app-cta>
 
-  <!-- Imagem -->
-  <img class="detail-image" [src]="projeto.imagem" [alt]="projeto.titulo" />
-
-  <!-- Descrição -->
-  <p>{{ projeto.descricao }}</p>
-
-  <!-- Info card -->
-  <div class="info-card">
-    <div class="info-item">
-      <span class="info-label">Localização</span>
-      <span class="info-value">{{ projeto.localizacao }}</span>
-    </div>
-    <div class="info-item">
-      <span class="info-label">Ano</span>
-      <span class="info-value">{{ projeto.data }}</span>
-    </div>
-    <div class="info-item">
-      <span class="info-label">Estado</span>
-      <span class="info-value">{{ projeto.estado === 'concluida' ? 'Concluída' : 'Em Curso' }}</span>
-    </div>
-  </div>
-
-</div>
-
-<app-cta></app-cta>
+</section>

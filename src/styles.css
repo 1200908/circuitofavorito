@@ -46,7 +46,7 @@ html, body {
 
 .page-background {
   /* Fundo com logo/pattern */
-  background-image: url('/assets/fundo.png'); /* caminho da tua imagem */
+  background-image: url('assets/fundo.png'); /* caminho da tua imagem */
   background-size: 1600px ;               /* ajusta o tamanho do logo */
   background-color: var(--background-color); /* cor de fallback */
 }

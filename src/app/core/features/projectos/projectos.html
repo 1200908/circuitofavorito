@@ -1,88 +1,128 @@
-<section class="projetos-hero">
-  <div class="hero-content">
-    <h1>Projectos</h1>
-    <p>Conheça o nosso portefólio de obras</p>
-  </div>
-</section>
+<section class="page-background">
 
-<section class="projetos-page">
-  <div class="page-wrapper">
-
-    <!-- Barra de pesquisa + filtros -->
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input
-          type="text"
-          placeholder="Pesquisar por nome ou localização..."
-          [(ngModel)]="search"
-          (ngModelChange)="aplicarFiltros()"
-        />
-      </div>
-
-      <div class="filters">
-        <button
-          [class.active]="estadoAtivo === 'todos'"
-          (click)="setEstado('todos')"
-        >
-          Todos <span class="count">{{ total }}</span>
-        </button>
-        <button
-          [class.active]="estadoAtivo === 'em-curso'"
-          (click)="setEstado('em-curso')"
-        >
-          Em Curso <span class="count">{{ emCurso }}</span>
-        </button>
-        <button
-          [class.active]="estadoAtivo === 'concluida'"
-          (click)="setEstado('concluida')"
-        >
-          Concluídas <span class="count">{{ concluidas }}</span>
-        </button>
-      </div>
+  <!-- Hero melhorado -->
+  <section class="projetos-hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Portefólio</p>
+      <h1>Projectos</h1>
+      <p class="hero-sub">Conheça o nosso trabalho em todo o país</p>
     </div>
+    <!-- Decoração geométrica -->
+    <div class="hero-decoration" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </section>
 
-    <!-- Resultados -->
-    <p class="results-label" *ngIf="filtered.length > 0">
-      {{ filtered.length }} projecto{{ filtered.length !== 1 ? 's' : '' }} encontrado{{ filtered.length !== 1 ? 's' : '' }}
-    </p>
+  <section class="projetos-page">
+    <div class="page-wrapper">
 
-    <!-- Grid -->
-    <div class="projects-grid" *ngIf="filtered.length > 0; else empty">
-      <div
-        class="project-card"
-        *ngFor="let projeto of filtered"
-        [routerLink]="['/projetos', projeto.id]"
-      >
-        <div class="card-image">
-          <img [src]="projeto.imagem" [alt]="projeto.titulo" />
-          <span class="badge" [ngClass]="projeto.estado">
-            {{ projeto.estado === 'concluida' ? '✔ Concluída' : '🔧 Em Curso' }}
-          </span>
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="search-box">
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Pesquisar por nome ou localização…"
+            [(ngModel)]="search"
+            (ngModelChange)="aplicarFiltros()"
+            aria-label="Pesquisar projectos"
+          />
+          <!-- Botão limpar -->
+          <button class="clear-search" *ngIf="search" (click)="search=''; aplicarFiltros()" aria-label="Limpar pesquisa">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
         </div>
-        <div class="card-body">
-          <h3>{{ projeto.titulo }}
-            <span *ngIf="projeto.subtitulo"> — {{ projeto.subtitulo }}</span>
-          </h3>
-          <div class="meta">
-            <span>📍 {{ projeto.localizacao }}</span>
-            <span>📅 {{ projeto.data }}</span>
+
+        <div class="filters" role="group" aria-label="Filtrar por estado">
+          <button [class.active]="estadoAtivo === 'todos'" (click)="setEstado('todos')">
+            Todos <span class="count">{{ total }}</span>
+          </button>
+          <button [class.active]="estadoAtivo === 'em-curso'" (click)="setEstado('em-curso')">
+            <span class="filter-dot em-curso"></span>
+            Em Curso <span class="count">{{ emCurso }}</span>
+          </button>
+          <button [class.active]="estadoAtivo === 'concluida'" (click)="setEstado('concluida')">
+            <span class="filter-dot concluida"></span>
+            Concluídas <span class="count">{{ concluidas }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contador de resultados -->
+      <p class="results-label" *ngIf="filtered.length > 0" aria-live="polite">
+        {{ filtered.length }} projecto{{ filtered.length !== 1 ? 's' : '' }} encontrado{{ filtered.length !== 1 ? 's' : '' }}
+      </p>
+
+      <!-- Grid -->
+      <div class="projects-grid" *ngIf="filtered.length > 0; else empty">
+        <article
+          class="project-card"
+          *ngFor="let projeto of filtered; let i = index"
+          [routerLink]="['/projetos', projeto.id]"
+          role="link"
+          tabindex="0"
+          (keydown.enter)="navigate(projeto.id)"
+          [attr.aria-label]="projeto.titulo + ', ' + projeto.localizacao"
+        >
+          <div class="card-image">
+            <img [src]="projeto.imagem" [alt]="projeto.titulo" loading="lazy" />
+            <div class="card-overlay" aria-hidden="true">
+              <span class="overlay-cta">Ver Projecto →</span>
+            </div>
+            <span class="badge" [ngClass]="projeto.estado">
+              <span class="badge-dot"></span>
+              {{ projeto.estado === 'concluida' ? 'Concluída' : 'Em Curso' }}
+            </span>
           </div>
-          <p class="desc">{{ projeto.descricao }}</p>
+
+          <div class="card-body">
+            <h3>{{ projeto.titulo }}</h3>
+            <p class="card-subtitle" *ngIf="projeto.subtitulo">{{ projeto.subtitulo }}</p>
+            <div class="meta">
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                  <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                {{ projeto.localizacao }}
+              </span>
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <path d="M16 2v4M8 2v4M3 10h18"/>
+                </svg>
+                {{ projeto.data }}
+              </span>
+            </div>
+            <p class="desc">{{ projeto.descricao }}</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Empty state melhorado -->
+      <ng-template #empty>
+        <div class="empty-state" role="status">
+          <div class="empty-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              <path d="M8 11h6M11 8v6"/>
+            </svg>
+          </div>
+          <h3>Sem resultados</h3>
+          <p>Não encontrámos projectos para "<strong>{{ search }}</strong>".</p>
+          <button (click)="search = ''; setEstado('todos')">
+            Limpar filtros
+          </button>
         </div>
-      </div>
+      </ng-template>
+
     </div>
+  </section>
 
-    <!-- Sem resultados -->
-    <ng-template #empty>
-      <div class="empty-state">
-        <span>🔎</span>
-        <p>Nenhum projecto encontrado.</p>
-        <button (click)="search = ''; setEstado('todos')">Limpar filtros</button>
-      </div>
-    </ng-template>
-
-  </div>
+  <app-cta></app-cta>
 </section>
-
-<app-cta></app-cta>

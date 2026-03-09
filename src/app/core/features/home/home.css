@@ -16,10 +16,14 @@
   position: relative;
 }
 
+.hero-content {
+  width: 100%;
+  max-width: 1000px;
+}
+
+
 /* container do conteúdo */
 .hero img {
-  width: 80%;
-  max-width: 920px;
   border-radius: 18px;
 
   margin-top: 20px;
@@ -32,11 +36,23 @@
 }
 .hero-slider {
   position: relative;
-  width: 100%;
-  max-width: 920px;
   height: 400px;       /* altura fixa ou relativa */
   overflow: hidden;
   border-radius: 18px;
+}
+
+.hero-slider video {
+  width: 100%;
+  height: 100%;
+  position: absolute;   /* igual às imagens */
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  opacity: 0;           /* para o slider controlar */
+  transition: opacity 1s ease-in-out;
+}
+.hero-slider video.active {
+  opacity: 1;
 }
 
 .hero-slider img {
@@ -325,7 +341,8 @@ h2 {
 @media(max-width: 768px) {
 
   .hero {
-    min-height: 90vh;   /* menor que o ecrã */
+    margin-top: -2rem;
+    min-height: 85vh;   /* menor que o ecrã */
     padding: 40px 15px; /* menos espaço */
   }
 
@@ -341,13 +358,14 @@ h2 {
     font-size: 1rem;
   }
 
-  .hero-content img {
-    width: 95%;
+  .hero-slider {
+    height: 250px;   /* menor altura no telemóvel */
   }
 
+
   .project-card {
-    min-width: 200px;
-    max-width: 220px;
+    min-width: 250px;
+    max-width: 300px;
   }
   .projects-scroll {
     padding: 20px 10px;

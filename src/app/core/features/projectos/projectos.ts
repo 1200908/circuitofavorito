@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PROJETOS } from '../../../data/projects';
 import {ProjetoDetalheComponent} from '../projeto-detalhe/projeto-detalhe';
@@ -44,4 +44,10 @@ export class ProjetosComponent implements OnInit {
   get total() { return this.projetos.length; }
   get emCurso() { return this.projetos.filter(p => p.estado === 'em-curso').length; }
   get concluidas() { return this.projetos.filter(p => p.estado === 'concluida').length; }
+
+  constructor(private router: Router) {}
+
+  navigate(id: string | number) {
+    this.router.navigate(['/projetos', id]);
+  }
 }

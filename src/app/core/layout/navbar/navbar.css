@@ -151,6 +151,10 @@
   .logo-text {
     font-size: 1.5rem;
   }
+  .navbar-image {
+    margin-top: 0rem;
+
+  }
 }
 
 @media (max-width: 360px) {
