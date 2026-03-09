@@ -1,7 +1,7 @@
 <section class="page-background">
 
   <!-- Hero melhorado -->
-  <section class="projetos-hero">
+  <section class="projetos-hero hidden" appScrollReveal>
     <div class="hero-content">
       <p class="hero-eyebrow">Portefólio</p>
       <h1>Projectos</h1>
@@ -13,7 +13,7 @@
     </div>
   </section>
 
-  <section class="projetos-page">
+  <section class="projetos-page hidden" appScrollReveal>
     <div class="page-wrapper">
 
       <!-- Toolbar -->
@@ -61,7 +61,7 @@
       <!-- Grid -->
       <div class="projects-grid" *ngIf="filtered.length > 0; else empty">
         <article
-          class="project-card"
+          class="project-card hidden" appScrollReveal
           *ngFor="let projeto of filtered; let i = index"
           [routerLink]="['/projetos', projeto.id]"
           role="link"

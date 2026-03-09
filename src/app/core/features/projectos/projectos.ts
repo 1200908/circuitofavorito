@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PROJETOS } from '../../../data/projects';
-import {ProjetoDetalheComponent} from '../projeto-detalhe/projeto-detalhe';
+import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
 import { CtaComponent } from '../../layout/cta/cta';
 
 @Component({
   selector: 'app-projectos',
-  imports: [CommonModule, RouterModule, FormsModule, CtaComponent],
+  imports: [CommonModule, RouterModule, FormsModule, CtaComponent, ScrollRevealDirective],
   templateUrl: './projectos.html',
   styleUrl: './projectos.css',
 })

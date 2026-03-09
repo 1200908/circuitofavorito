@@ -2,8 +2,11 @@
 .cta-section {
   padding: 5rem 5%;
   text-align: center;
-  background: color-mix(in srgb, var(--primary-color) 8%, white);
-  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(234, 243, 255, 0.65) 0%,
+    rgba(214, 232, 255, 0.65) 100%
+  );  border-radius: 18px;
   max-width: 1200px;
   text-align: center;
   margin: 20px auto;

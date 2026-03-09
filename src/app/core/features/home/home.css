@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap');
 
 .hero {
   background: linear-gradient(
@@ -251,7 +252,7 @@ h2 {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 20px rgba(131, 133, 132, 0.4);
+  box-shadow: 0 4px 10px rgba(131, 133, 132, 0.5);
 
 }
 
@@ -270,6 +271,24 @@ h2 {
 /* Conteúdo */
 .content {
   padding: 10px;
+}
+
+.projects-scroll .project-card .content h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.07rem;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.86rem;
+  color: var(--secondary-color);
+  opacity: 0.6;
+  font-style: italic;
+  margin: 0;
 }
 
 .status {
@@ -298,12 +317,21 @@ h2 {
 }
 
 .meta {
-  font-size: 0.8rem;
-  color: #bbb;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 8px;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  color: var(--secondary-color);
+  opacity: 0.75;
 }
 
 /* Description curta */

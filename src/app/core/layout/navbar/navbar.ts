@@ -38,27 +38,13 @@ export class NavbarComponent {
 
   goToHome() {
     this.router.navigate(['/home']).then(() => {
-      const el = document.querySelector('.hero');
+      const el = document.querySelector('.page-background');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   }
   goToAbout() {
     this.router.navigate(['/about']).then(() => {
-      const el = document.querySelector('.about-hero');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-
-  goToProgramacao() {
-    this.router.navigate(['/programacao']).then(() => {
-      const el = document.querySelector('.programacao-hero');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-
-  goToGuia() {
-    this.router.navigate(['/guia-turistico']).then(() => {
-      const el = document.querySelector('.guia-hero');
+      const el = document.querySelector('.page-background');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   }

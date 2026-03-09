@@ -4,10 +4,11 @@ import { PROJETOS } from '../../../data/projects';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CtaComponent } from '../../layout/cta/cta';
+import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-projeto-detalhe',
-  imports: [CommonModule, RouterModule, CtaComponent],
+  imports: [CommonModule, RouterModule, CtaComponent, ScrollRevealDirective],
   templateUrl: './projeto-detalhe.html',
   styleUrl: './projeto-detalhe.css',
 })

@@ -9,7 +9,7 @@ import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.di
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CtaComponent, CommonModule, RouterModule, ScrollRevealDirective,],
+  imports: [CtaComponent, CommonModule, RouterModule, ScrollRevealDirective],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -104,14 +104,24 @@ export class HomeComponent implements OnInit, AfterViewInit{
     return Math.ceil(container.scrollLeft + container.clientWidth) >= container.scrollWidth;
   }
 
-  @ViewChildren('slides') slides!: QueryList<ElementRef<HTMLImageElement>>;
+  @ViewChildren('slides') slides!: QueryList<ElementRef<HTMLElement>>;
   heroSlideIndex  = 0;
   ngAfterViewInit(): void {
-    // Mostra a primeira imagem
-    this.slides.toArray()[this.heroSlideIndex ].nativeElement.classList.add('active');
+    const first = this.slides.toArray()[this.heroSlideIndex].nativeElement;
+    first.classList.add('active');
+
+    // Se for vídeo, força o play
+    if (first.tagName === 'VIDEO') {
+      const video = first as HTMLVideoElement;
+      video.muted = true; // precisa estar muted
+      video.play().catch(() => {
+        // fallback caso autoplay falhe
+        console.log('Vídeo autoplay bloqueado, aguardando interação do usuário.');
+      });
+    }
 
     // Intervalo para mudar de slide
-    setInterval(() => this.showNextSlide(), 4000);
+    setInterval(() => this.showNextSlide(), 5000);
   }
 
   showNextSlide() {
