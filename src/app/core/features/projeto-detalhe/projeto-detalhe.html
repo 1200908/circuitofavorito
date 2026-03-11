@@ -1,6 +1,6 @@
 <section class="page-background">
 
-  <div class="project-detail" *ngIf="projeto">
+  <div class="project-detail" *ngIf="projeto" [class.few-thumbs]="todasImagens.length <= 3">
 
     <!-- Voltar -->
     <a class="back-link" routerLink="/projetos">
@@ -39,8 +39,8 @@
     <hr class="divider" />
 
     <!-- Imagem principal -->
-    <div class="detail-image-wrapper hidden" appScrollReveal (click)="abrirLightbox(0)">
-      <img class="detail-image" [src]="todasImagens[0]" [alt]="projeto.titulo" loading="lazy" />
+    <div class="detail-image-wrapper hidden" appScrollReveal (click)="abrirLightbox(currentIndex)">
+      <img class="detail-image" [src]="todasImagens[currentIndex]" [alt]="projeto.titulo" loading="eager"/>
       <div class="detail-image-hint" aria-hidden="true">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
@@ -49,11 +49,12 @@
     </div>
 
     <!-- Thumbnails -->
-    <div class="detail-thumbs" *ngIf="todasImagens.length > 1">
+    <div class="detail-thumbs"  #carousel *ngIf="todasImagens.length > 1">
       <button
         class="thumb-btn"
         *ngFor="let img of todasImagens; let i = index"
-        (click)="abrirLightbox(i)"
+        [class.active]="i === currentIndex"
+        (click)="selecionarThumb(i)"
         [attr.aria-label]="'Ver foto ' + (i + 1)"
       >
         <img [src]="img" [alt]="projeto.titulo + ' ' + (i + 1)" loading="lazy" />

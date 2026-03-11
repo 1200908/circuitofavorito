@@ -1,4 +1,13 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  NgZone,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PROJETOS } from '../../../data/projects';
 import { CommonModule } from '@angular/common';
@@ -12,38 +21,88 @@ import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.di
   templateUrl: './projeto-detalhe.html',
   styleUrl: './projeto-detalhe.css',
 })
-export class ProjetoDetalheComponent implements OnInit {
+export class ProjetoDetalheComponent implements OnInit, OnDestroy {
 
   projeto: any;
-  lightboxAberto: boolean = false;
-  lightboxIndex: number = 0;
-  private touchStartX: number = 0;
+  currentIndex = 0;
+  lightboxAberto = false;
+  lightboxIndex = 0;
+  private touchStartX = 0;
+  private timer: any;
 
-  constructor(private route: ActivatedRoute) {}
 
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.projeto = PROJETOS.find(p => p.id === id);
+    this.startTimer();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 
   get todasImagens(): string[] {
     return this.projeto?.imagens ?? (this.projeto?.imagem ? [this.projeto.imagem] : []);
   }
 
+  private startTimer() {
+    clearInterval(this.timer);
+
+    this.timer = setInterval(() => {
+      const total = this.todasImagens.length;
+      if (total > 1) {
+        this.currentIndex = (this.currentIndex + 1) % total;
+        this.scrollToActive();
+        this.cdr.detectChanges(); // força atualização da view
+      }
+    }, 3000);
+  }
+
+  selecionarThumb(index: number) {
+    this.currentIndex = index;
+    this.scrollToActive();
+    clearInterval(this.timer);
+    this.timer = setTimeout(() => {
+      this.startTimer(); // reinicia autoplay
+    }, 3000);
+  }
+
+  @ViewChild('carousel', { static: false }) carousel!: ElementRef<HTMLDivElement>;
+
+  private scrollToActive() {
+    if (!this.carousel) return;
+    const container = this.carousel.nativeElement;
+    const thumb = container.querySelector('.thumb-btn') as HTMLElement;
+    if (!thumb) return;
+
+    const thumbWidth = thumb.clientWidth;
+    const gap = 10;
+    const paddingLeft = 16; // 1rem = 16px
+    const scrollLeft = this.currentIndex * (thumbWidth + gap) - paddingLeft;
+
+    container.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+  }
+
   abrirLightbox(index: number) {
     this.lightboxIndex = index;
+    this.currentIndex = index;
     this.lightboxAberto = true;
+    clearInterval(this.timer); // pausa ao abrir lightbox
     document.body.style.overflow = 'hidden';
   }
 
   fecharLightbox() {
     this.lightboxAberto = false;
     document.body.style.overflow = '';
+    this.startTimer(); // retoma ao fechar
   }
 
   navLightbox(direcao: 1 | -1) {
     const total = this.todasImagens.length;
     this.lightboxIndex = (this.lightboxIndex + direcao + total) % total;
+    this.currentIndex = this.lightboxIndex;
+    this.scrollToActive();
   }
 
   onTouchStart(e: TouchEvent) {
@@ -52,9 +111,7 @@ export class ProjetoDetalheComponent implements OnInit {
 
   onTouchEnd(e: TouchEvent) {
     const diff = this.touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 50) {
-      this.navLightbox(diff > 0 ? 1 : -1);
-    }
+    if (Math.abs(diff) > 50) this.navLightbox(diff > 0 ? 1 : -1);
   }
 
   @HostListener('document:keydown', ['$event'])
