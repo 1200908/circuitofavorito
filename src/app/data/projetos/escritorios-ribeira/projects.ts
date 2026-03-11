@@ -5,6 +5,6 @@ export const ESCRITORIOS_RIBEIRA = {
  localizacao: 'Ribeira ',
   data: '2023',
   descricao: 'Sendo responsável pela execução da rede de abastecimento e pela rede de drenagem de águas residuais.',
-  imagem: 'assets/projetos/escritorios_porto.jpg',
-  imagens: [ 'assets/projetos/escritorios_porto.jpg', 'assets/logo/simple_logo.jpg', 'assets/projetos/legacy_living.jpg', ]
+  imagem: 'assets/projetos/escritorios-ribeira/escritorios_porto.jpg',
+  imagens: [ 'assets/projetos/escritorios-ribeira/escritorios_porto.jpg', 'assets/projetos/escritorios-ribeira/escritorios_ribeira2.jpg', 'assets/projetos/escritorios-ribeira/escritorios_ribeira3.jpg', ]
 }
