@@ -28,6 +28,7 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
   lightboxAberto = false;
   lightboxIndex = 0;
   private touchStartX = 0;
+  private touchStartY = 0;
   private timer: any;
 
 
@@ -107,11 +108,17 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
 
   onTouchStart(e: TouchEvent) {
     this.touchStartX = e.changedTouches[0].screenX;
+    this.touchStartY = e.changedTouches[0].screenY;
   }
 
   onTouchEnd(e: TouchEvent) {
-    const diff = this.touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 50) this.navLightbox(diff > 0 ? 1 : -1);
+    const diffX = this.touchStartX - e.changedTouches[0].screenX;
+    const diffY = this.touchStartY - e.changedTouches[0].screenY;
+
+    // só considera swipe se for movimento horizontal predominante
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      this.navLightbox(diffX > 0 ? 1 : -1);
+    }
   }
 
   @HostListener('document:keydown', ['$event'])
