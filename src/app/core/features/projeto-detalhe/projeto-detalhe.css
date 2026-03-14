@@ -262,8 +262,9 @@
 .project-detail .estado-concluida { color: var(--success-color); }
 .project-detail .estado-em-curso  { color: var(--primary-color); }
 
-/* ---- Lightbox ---- */
-.lightbox {
+
+/* ---- Modal ---- */
+.modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.93);
@@ -272,19 +273,31 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  animation: modalFade 0.7s ease forwards;
 }
 
-.lightbox-img {
+.modal-box{
+  position: relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.modal-img {
   max-height: 90vh;
   max-width: 88vw;
   object-fit: contain;
   border-radius: 8px;
   display: block;
-  cursor: default;
   user-select: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
-.lightbox-close {
+.modal-img:hover {
+  transform: scale(1.03);
+}
+
+.modal-close {
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
@@ -299,14 +312,14 @@
   color: #fff;
   cursor: pointer;
   transition: background 0.2s;
-  z-index: 1;
+  z-index: 2;
 }
 
-.lightbox-close:hover {
+.modal-close:hover {
   background: rgba(255, 255, 255, 0.22);
 }
 
-.lightbox-nav {
+.modal-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -321,22 +334,45 @@
   color: #fff;
   cursor: pointer;
   transition: background 0.2s;
-  z-index: 1;
+  z-index: 2;
 }
 
-.lightbox-nav:hover { background: rgba(255, 255, 255, 0.22); }
-.lightbox-nav.prev  { left: 1.2rem; }
-.lightbox-nav.next  { right: 1.2rem; }
+.modal-nav:hover { background: rgba(255, 255, 255, 0.22); }
+.modal-nav.prev  { left: 1.2rem; }
+.modal-nav.next  { right: 1.2rem; }
+.modal-nav.disabled {
+  opacity: 0.15;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.9);
+  cursor: not-allowed;
+}
 
-.lightbox-counter {
-  position: absolute;
-  bottom: 1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.45);
+.modal-counter {
+  display: inline-block;
+  margin-top: 12px;
+
+  padding: 6px 12px;
+  border-radius: 20px;
+
+  background: rgba(0,0,0,0.55);
+
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.9);
   letter-spacing: 0.06em;
+
+  backdrop-filter: blur(4px);
+}
+
+.swiper-container{
+  width: 88vw;
+  max-width: 1200px;
+}
+
+.swiper-slide{
+  display:flex;
+  justify-content:center;
+  align-items: center;
 }
 
 .project-detail .detail-body {
@@ -412,3 +448,13 @@
   50%       { opacity: 0.4; transform: scale(0.7); }
 }
 
+@keyframes modalFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

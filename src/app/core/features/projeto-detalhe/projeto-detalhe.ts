@@ -6,14 +6,16 @@ import {
   NgZone,
   ChangeDetectorRef,
   ViewChild,
-  ElementRef
+  ElementRef, Inject, PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PROJETOS } from '../../../data/projects';
-import { CommonModule } from '@angular/common';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CtaComponent } from '../../layout/cta/cta';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
+import 'swiper/css';
+
 
 @Component({
   selector: 'app-projeto-detalhe',
@@ -31,8 +33,14 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
   private touchStartY = 0;
   private timer: any;
 
+  // Modal
+  isModalOpen = false;
+  modalImageSrc = '';
+  modalCurrentIndex = 0;
+  modalTouchStartY = 0;
 
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
+
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.projeto = PROJETOS.find(p => p.id === id);
@@ -41,6 +49,7 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.timer);
+    if (this.swiper) this.swiper.destroy(true, true);
   }
 
   get todasImagens(): string[] {
@@ -84,6 +93,64 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
 
     container.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
   }
+
+  private swiper: any = null;
+  get maxIndex(): number {
+    return Math.max(0, this.todasImagens.length);
+  }
+  openModal(event: MouseEvent, index: number): void {
+    event.stopPropagation();
+    this.modalCurrentIndex = index;
+    this.modalImageSrc = this.todasImagens[index];
+    this.isModalOpen = true;
+    //const targetIndex = Math.floor(index / this.slidesPerView) * this.slidesPerView;
+    //this.currentIndex = Math.min(targetIndex, this.maxIndex);
+    setTimeout(() => this.initSwiper(index), 50);
+  }
+
+  async initSwiper(index: number) {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const { default: Swiper } = await import('swiper');
+    const { Keyboard, A11y } = await import('swiper/modules');
+    this.swiper = new Swiper('.modal .swiper-container', {
+      modules: [Keyboard, A11y],
+      initialSlide: index,
+      loop: false,
+      keyboard: { enabled: true },
+      slidesPerView: 1,
+      spaceBetween: 50,
+      autoHeight: true,
+      effect: 'slide',
+      speed: 450,
+      on: {
+        slideChange: () => {
+          if (this.swiper) {
+            this.modalCurrentIndex = this.swiper.realIndex;
+            this.modalImageSrc = this.todasImagens[this.modalCurrentIndex];
+            this.cdr.detectChanges();
+          }
+        }
+      }
+    });
+  }
+
+  prevModalImage(): void {
+    this.swiper ? this.swiper.slidePrev() : null;
+  }
+
+  nextModalImage(): void {
+    this.swiper ? this.swiper.slideNext() : null;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.modalImageSrc = '';
+    if (this.swiper) {
+      this.swiper.destroy(true, true);
+      this.swiper = null;
+    }
+  }
+
 
   abrirLightbox(index: number) {
     this.lightboxIndex = index;

@@ -39,7 +39,7 @@
     <hr class="divider" />
 
     <!-- Imagem principal -->
-    <div class="detail-image-wrapper hidden" appScrollReveal (click)="abrirLightbox(currentIndex)">
+    <div class="detail-image-wrapper hidden" appScrollReveal (click)="openModal($event, currentIndex)">
       <img class="detail-image" [src]="todasImagens[currentIndex]" [alt]="projeto.titulo" loading="eager"/>
       <div class="detail-image-hint" aria-hidden="true">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -61,38 +61,45 @@
       </button>
     </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" *ngIf="lightboxAberto"
-         (click)="fecharLightbox()"
-         (touchstart)="onTouchStart($event)"
-         (touchend)="onTouchEnd($event)"
-    >
-      <button class="lightbox-close" (click)="fecharLightbox()" aria-label="Fechar">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M18 6 6 18M6 6l12 12"/>
-        </svg>
-      </button>
-      <button class="lightbox-nav prev" (click)="$event.stopPropagation(); navLightbox(-1)" aria-label="Anterior" *ngIf="todasImagens.length > 1">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
-      <img
-        [src]="todasImagens[lightboxIndex]"
-        [alt]="projeto.titulo"
-        (click)="$event.stopPropagation()"
-        class="lightbox-img"
-      />
-      <button class="lightbox-nav next" (click)="$event.stopPropagation(); navLightbox(1)" aria-label="Seguinte" *ngIf="todasImagens.length > 1">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-      </button>
-      <span class="lightbox-counter" *ngIf="todasImagens.length > 1">
-        {{ lightboxIndex + 1 }} / {{ todasImagens.length }}
-      </span>
-    </div>
+    <!-- Modal -->
+    <div class="modal" *ngIf="isModalOpen"
+         (click)="closeModal()"
+         (touchstart)="onTouchStart($event)">
 
+      <div class="modal-box" (click)="$event.stopPropagation()">
+
+        <button class="modal-close" (click)="closeModal()" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+
+        <button class="modal-nav prev"
+                [class.disabled]="modalCurrentIndex === 0"
+                [disabled]="modalCurrentIndex === 0"
+                (click)="prevModalImage()">
+          <span class="fa fa-chevron-left"></span>
+        </button>
+
+        <div class="swiper-container" >
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let img of todasImagens">
+              <img class="modal-img" [src]="img" />
+            </div>
+          </div>
+        </div>
+
+        <button class="modal-nav next"
+                [class.disabled]="modalCurrentIndex === maxIndex - 1"
+                [disabled]="modalCurrentIndex === maxIndex"
+                (click)="nextModalImage()">
+          <span class="fa fa-chevron-right"></span>
+        </button>
+         <span class="modal-counter">
+          {{ modalCurrentIndex + 1 }} / {{ todasImagens.length }}
+         </span>
+      </div>
+    </div>
     <!-- Descrição -->
     <div class="detail-body hidden" appScrollReveal>
       <p>{{ projeto.descricao }}</p>

@@ -32,6 +32,7 @@
     "@emailjs/browser": "^4.4.1",
     "emailjs": "^5.0.0",
     "rxjs": "~7.8.0",
+    "swiper": "^12.1.2",
     "tslib": "^2.3.0",
     "typed.js": "^3.0.0"
   },
