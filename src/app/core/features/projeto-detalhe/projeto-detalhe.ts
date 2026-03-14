@@ -132,6 +132,7 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
         }
       }
     });
+    this.swiper.slideTo(index, 0);
   }
 
   prevModalImage(): void {

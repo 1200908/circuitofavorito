@@ -93,12 +93,12 @@
                 [class.disabled]="modalCurrentIndex === maxIndex - 1"
                 [disabled]="modalCurrentIndex === maxIndex"
                 (click)="nextModalImage()">
-          <span class="fa fa-chevron-right"></span>
+          <span class="fa fa-chevron-right "></span>
         </button>
-         <span class="modal-counter">
-          {{ modalCurrentIndex + 1 }} / {{ todasImagens.length }}
-         </span>
       </div>
+
+      <div class="modal-counter"> {{ modalCurrentIndex + 1 }} / {{ todasImagens.length }}</div>
+
     </div>
     <!-- Descrição -->
     <div class="detail-body hidden" appScrollReveal>
