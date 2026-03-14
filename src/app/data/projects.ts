@@ -5,11 +5,13 @@ import {ESCRITORIOS_RIBEIRA} from './projetos/escritorios-ribeira/projects';
 import {HOTEL_RIBEIRA} from './projetos/hotel_ribeira/projects';
 import {ADRIPART_ALFANDEGA} from './projetos/adripart-alfandega/projects';
 import {HOSPITAL_S_JOAO} from './projetos/hospital-s-joao/projects';
+import {AQS_BAIAO} from './projetos/AQS_baiao/projects';
 
 
 export const PROJETOS = [
   CONTINENTE_BOLHAO,
   LEGACY_LIVING,
+  AQS_BAIAO,
   SOL_MAIOR,
   HOSPITAL_S_JOAO,
   ESCRITORIOS_RIBEIRA,
