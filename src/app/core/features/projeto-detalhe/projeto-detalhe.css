@@ -124,7 +124,7 @@
 /* ---- Imagem principal ---- */
 .project-detail .detail-image-wrapper {
   position: relative;
-  width: 60%;
+  width: 40%;
   aspect-ratio: 3 / 4;
   margin: 0 auto 0.8rem;
   border-radius: 16px;
@@ -220,8 +220,11 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 1.05rem;
   line-height: 1.85;
-  color: var(--secondary-color);
+  color: var(--text-color);
   margin-bottom: 1.2rem;
+  background: var(--background-color);
+  padding: 10px;
+  border-radius: 10px;
 }
 
 /* ---- Info card ---- */
@@ -400,7 +403,7 @@
   }
 
   .project-detail .detail-image-wrapper {
-    width: 90%;
+    width: 80%;
     border-radius: 12px;
   }
   .project-detail .detail-image {

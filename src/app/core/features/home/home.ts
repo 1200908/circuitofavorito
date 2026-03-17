@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild, NgZone, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import { CtaComponent } from '../../layout/cta/cta';
 import { PROJETOS } from '../../../data/projects';
-import {RouterModule} from '@angular/router';
+import {NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
 
@@ -16,6 +16,7 @@ import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.di
 export class HomeComponent implements OnInit, AfterViewInit{
 
   projetos = PROJETOS;
+  currentRoute: string = '';
 
   @ViewChild('carousel', { static: true }) carousel!: ElementRef<HTMLDivElement>;
   private autoStepInterval: any;
@@ -50,7 +51,13 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   currentIndex = 0;
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, private router: Router){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects;
+      }
+    });
+  }
 
   ngOnInit() {
     this.startAutoStep();
@@ -134,6 +141,13 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
     // Adiciona active à próxima
     slidesArray[this.heroSlideIndex ].nativeElement.classList.add('active');
+  }
+
+  goToAbout() {
+    this.router.navigate(['/about']).then(() => {
+      const el = document.querySelector('.page-background');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
   }
 
 

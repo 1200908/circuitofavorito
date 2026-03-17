@@ -1,16 +1,27 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import {Component, OnInit, AfterViewInit, ElementRef, OnDestroy, NgZone, ChangeDetectorRef} from '@angular/core';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
 import { CtaComponent } from '../../layout/cta/cta';
+import { PROJETOS } from '../../../data/projects';
+import {Router, RouterLink, RouterLinkActive,} from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-about',
-  imports: [ScrollRevealDirective, CtaComponent],
+  imports: [ScrollRevealDirective, CtaComponent, RouterLink, CommonModule],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
-export class AboutComponent implements AfterViewInit {
+export class AboutComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  constructor(private elementRef: ElementRef) {}
+  projetos = PROJETOS;
+  currentRoute: string = '';
+  teaserIndex = 0;
+  isChanging = false;
+  isEntering = false;
+  private teaserInterval: any;
+  private teaserPauseTimeout: any;
+  constructor(private elementRef: ElementRef, private router: Router, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.initCounterAnimation();
@@ -69,6 +80,86 @@ export class AboutComponent implements AfterViewInit {
     };
 
     requestAnimationFrame(step);
+  }
+
+  goToProjects() {
+    this.router.navigate(['/projetos']).then(() => {
+      const el = document.querySelector('.projetos-hero');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  projetoAtual(offset: number): any {
+    const total = this.projetos.length;
+    return this.projetos[(this.teaserIndex + offset) % total];
+  }
+
+  ngOnInit() {
+    this.startTeaser();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.teaserInterval);
+    clearTimeout(this.teaserPauseTimeout);
+  }
+
+  startTeaser() {
+    clearInterval(this.teaserInterval);
+
+    this.ngZone.runOutsideAngular(() => {
+      this.teaserInterval = setInterval(() => {
+        this.ngZone.run(() => {
+          this.advanceTeaser();
+        });
+      }, 6000);
+    });
+  }
+  advanceTeaser() {
+    // 1. saída
+    this.isChanging = true;
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      // 2. muda o index e prepara entrada
+      this.teaserIndex = (this.teaserIndex + 1) % this.projetos.length;
+      this.isChanging = false;
+      this.isEntering = true;
+      this.cdr.detectChanges();
+
+      setTimeout(() => {
+        // 3. entra
+        this.isEntering = false;
+        this.cdr.detectChanges();
+      }, 50); // tick pequeno para o browser registar a posição inicial
+    }, 350);
+  }
+
+  goToTeaser(index: number) {
+    this.isChanging = true;
+    this.cdr.detectChanges();
+    clearInterval(this.teaserInterval);
+
+    setTimeout(() => {
+      this.teaserIndex = index;
+      this.isChanging = false;
+      this.isEntering = true;
+      this.cdr.detectChanges();
+
+      setTimeout(() => {
+        this.isEntering = false;
+        this.cdr.detectChanges();
+      }, 50);
+    }, 350);
+
+    this.teaserPauseTimeout = setTimeout(() => this.startTeaser(), 3000);
+  }
+
+  pauseTeaser() {
+    clearInterval(this.teaserInterval);
+  }
+
+  resumeTeaser() {
+    this.startTeaser();
   }
 
 }

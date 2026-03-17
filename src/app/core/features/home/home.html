@@ -29,7 +29,14 @@
 
 </section>
 <section class="obras hidden" appScrollReveal>
-  <h2>Projetos</h2>
+  <div class="obras-header">
+    <div class="obras-header-label">Portefólio</div>
+    <h2>Projectos</h2>
+    <p class="obras-header-sub">
+      Conheça o nosso trabalho em todo o país de reabilitações urbanas a novas
+      construções, cada obra conta uma história de rigor, detalhe e identidade.
+    </p>
+  </div>
 
   <div class="carousel-wrapper">
     <button
@@ -51,7 +58,7 @@
           <img [src]="projeto.imagem" alt="{{ projeto.titulo }}" />
           <div class="content">
             <h3>{{ projeto.titulo }}</h3>
-            <p class="card-subtitle" *ngIf="projeto.subtitulo">{{ projeto.subtitulo }}</p>
+            <!--<p class="card-subtitle" *ngIf="projeto.subtitulo">{{ projeto.subtitulo }}</p>-->
             <div class="meta">
              <span>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -68,7 +75,7 @@
                 {{ projeto.data }}
               </span>
             </div>
-            <p class="description">{{ projeto.descricao }}</p>
+            <!--<p class="description">{{ projeto.descricao }}</p>-->
           </div>
         </div>
       </div>
@@ -88,6 +95,40 @@
   </div>
 
 </section>
+
+ <div class="about-teaser-bg">
+  <section class="about-teaser hidden" appScrollReveal>
+    <div class="about-left">
+      <div class="about-label">Quem somos</div>
+      <h2>Uma empresa feita de<br><em>rigor e confiança</em></h2>
+      <p>
+        A Circuito Favorito nasceu da vontade de fazer diferente — combinando
+        inovação técnica com atenção ao detalhe em cada projeto. Trabalhamos
+        em todo o país com um compromisso simples: entregar mais do que o esperado.
+      </p>
+      <div class="about-stats">
+        <div class="stat"><strong>+50</strong><span>Projectos</span></div>
+        <div class="stat"><strong>+10</strong><span>Anos</span></div>
+        <div class="stat"><strong>18</strong><span>Distritos</span></div>
+      </div>
+      <a (click)="goToAbout()" [class.active]="currentRoute === '/about'" class="btn-primary">
+        Conhecer a empresa
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="about-right">
+      <img src="assets/capa3.jpg" alt="Equipa Circuito Favorito" />
+      <div class="about-badge">
+        <strong>100%</strong>
+        <span>Satisfação</span>
+      </div>
+    </div>
+  </section>
+ </div>
+
 
   <app-cta class= "hidden" appScrollReveal> </app-cta>
 

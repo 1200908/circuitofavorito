@@ -67,5 +67,113 @@
   </div>
 </section>
 
+  <!-- Projectos Teaser -->
+  <section class="about-projects hidden" appScrollReveal>
+  <div class="about-section projects-teaser" >
+    <div class="teaser-left">
+      <div class="teaser-label">Portefólio</div>
+      <h2>O nosso trabalho<br>fala por nós</h2>
+      <p>Mais de 60 obras concluídas em todo o país de instalações de canalização a sistemas de energia solar, cada projeto é entregue com rigor e profissionalismo.</p>
+      <a (click)="goToProjects()" [class.active]="currentRoute === '/projetos'" class="btn-primary">
+        Ver todos os Projectos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="teaser-right"
+         (mouseenter)="pauseTeaser()"
+         (mouseleave)="resumeTeaser()">
+      <div class="teaser-cards-grid"
+           [class.fading]="isChanging"
+           [class.entering]="isEntering">
+
+        <div class="teaser-card teaser-card--main"
+             [routerLink]="['/projetos', projetoAtual(0).id]">
+          <img [src]="projetoAtual(0).imagem" [alt]="projetoAtual(0).titulo" />
+          <div class="content">
+            <h3>{{ projetoAtual(0).titulo }}</h3>
+            <div class="meta">
+          <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            {{ projetoAtual(0).localizacao }}
+          </span>
+              <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+                {{ projetoAtual(0).data }}
+          </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="teaser-card"
+             [routerLink]="['/projetos', projetoAtual(1).id]">
+          <img [src]="projetoAtual(1).imagem" [alt]="projetoAtual(1).titulo" />
+          <div class="content">
+            <h3>{{ projetoAtual(1).titulo }}</h3>
+            <div class="meta">
+          <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            {{ projetoAtual(1).localizacao }}
+          </span>
+              <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+                {{ projetoAtual(1).data }}
+          </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="teaser-card"
+             [routerLink]="['/projetos', projetoAtual(2).id]">
+          <img [src]="projetoAtual(2).imagem" [alt]="projetoAtual(2).titulo" />
+          <div class="content">
+            <h3>{{ projetoAtual(2).titulo }}</h3>
+            <div class="meta">
+          <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            {{ projetoAtual(2).localizacao }}
+          </span>
+              <span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+                {{ projetoAtual(2).data }}
+          </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="teaser-dots">
+        <button
+          *ngFor="let p of projetos.slice(0, 8); let i = index"
+          class="teaser-dot"
+          [class.active]="i === teaserIndex"
+          (click)="goToTeaser(i)">
+        </button>
+      </div>
+    </div>
+  </div>
+  </section>
+
 <app-cta class= "hidden" appScrollReveal> </app-cta>
 </section>
