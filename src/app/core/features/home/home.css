@@ -75,8 +75,8 @@
   margin-bottom: 0.8rem;
   font-family: 'DM Sans', sans-serif;
   line-height: 1.2;
+  overflow: hidden;
 }
-
 /* "Bem-vindo à" */
 .hero-welcome {
   display: block;
@@ -110,11 +110,23 @@
 /* descrição */
 .hero p {
   font-size: 1.2rem;
-  margin: 1.2rem auto 2rem;
-  color: var(--text-color);
+  color: #6b7280;
   font-family: 'DM Sans', sans-serif;
-  max-width: 600px;
-  line-height: 1.6;
+  font-weight: 300;        /* ← mais leve no geral */
+}
+
+.hero p em {
+  font-style: italic;
+  color: var(--accent);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+
+.hero p strong {
+  font-weight: 800;
+  color: var(--primary-color);
+  font-family: 'Syne', sans-serif;
+  font-style: normal;
 }
 
 .scroll-hint {
@@ -246,9 +258,11 @@ h2 {
 }
 
 .arrow[hidden] {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  opacity: 0.2;
+  cursor: not-allowed;
+  background: rgba(4, 13, 38, 0.75);
+  color: var(--error-color);
+  transition: opacity 0.3s ease, background 0.3s ease;
 }
 
 
@@ -286,6 +300,12 @@ h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 10px rgba(131, 133, 132, 0.5);
 
+}
+
+.project-card.active {
+  transform: translateY(-8px);  /* sobe 6px */
+  box-shadow: 0 8px 20px rgba(14, 53, 229, 0.49);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .project-card:hover {
@@ -386,6 +406,9 @@ h2 {
   font-size: 1.1rem;
   transition: all 0.3s ease;
   display: inline-block;
+  width: auto;
+  max-width: max-content;
+  margin: 0 auto;
   border: none;
 
 }
@@ -396,6 +419,7 @@ h2 {
   border: 2px solid var(--primary-color);
   transform: translateY(-3px);
 }
+
 
 
 .about-teaser-bg {
@@ -533,7 +557,7 @@ h2 {
   }
   .about-badge {
     left: auto;
-    right: 1rem;
+    margin-right: 11rem ;
   }
 }
 
@@ -555,6 +579,7 @@ h2 {
   }
 
   .hero p {
+    margin-top: 15px;
     font-size: 1rem;
   }
 

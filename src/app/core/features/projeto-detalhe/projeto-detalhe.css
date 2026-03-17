@@ -221,7 +221,6 @@
   font-size: 1.05rem;
   line-height: 1.85;
   color: var(--text-color);
-  margin-bottom: 1.2rem;
   background: var(--background-color);
   padding: 10px;
   border-radius: 10px;
@@ -236,7 +235,7 @@
   border: 1.5px solid rgba(7, 39, 123, 0.08);
   border-radius: 16px;
   padding: 1.8rem;
-  margin-top: 2.5rem;
+  margin-top: 0.5rem;
 }
 
 .project-detail .info-item {
@@ -421,7 +420,7 @@
   .project-detail .detail-thumbs {
     display: flex;
     padding: 0.2rem 0 0.5rem 0;
-    margin: 0 -1rem 2rem;
+    margin: 0 -1rem 0.5rem;
     padding-left: 1rem;
     justify-content: flex-start; /* default */
     overflow-x: auto;

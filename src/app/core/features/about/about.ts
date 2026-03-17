@@ -4,7 +4,10 @@ import { CtaComponent } from '../../layout/cta/cta';
 import { PROJETOS } from '../../../data/projects';
 import {Router, RouterLink, RouterLinkActive,} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-about',
@@ -25,6 +28,53 @@ export class AboutComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initCounterAnimation();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Teaser label — entra da esquerda
+    gsap.fromTo('.teaser-label',
+      { x: -60, rotation: -8, opacity: 0 },
+      {
+        x: 0, rotation: 0, opacity: 1,
+        scrollTrigger: {
+          trigger: '.teaser-left',
+          start: 'top 80%',
+          end: 'center 50%',
+          scrub: true
+        },
+        ease: 'none'
+      }
+    );
+
+// Teaser h2 — entra da direita
+    gsap.fromTo('.teaser-left h2',
+      { x: 60, rotation: 8, opacity: 0 },
+      {
+        x: 0, rotation: 0, opacity: 1,
+        scrollTrigger: {
+          trigger: '.teaser-left',
+          start: 'top 80%',
+          end: 'center 50%',
+          scrub: true
+        },
+        ease: 'none'
+      }
+    );
+
+// Teaser p — entra da esquerda mais suave
+    gsap.fromTo('.teaser-left p',
+      { x: -60, rotation: -8, opacity: 0 },
+      {
+        x: 0, rotation: 0, opacity: 1,
+        scrollTrigger: {
+          trigger: '.teaser-left',
+          start: 'top 90%',
+          end: 'top 30%',
+          scrub: true
+        },
+        ease: 'none'
+      }
+    );
   }
 
   private initCounterAnimation(): void {
@@ -101,6 +151,7 @@ export class AboutComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(this.teaserInterval);
     clearTimeout(this.teaserPauseTimeout);
+    ScrollTrigger.getAll().forEach(t => t.kill());
   }
 
   startTeaser() {
@@ -161,5 +212,6 @@ export class AboutComponent implements AfterViewInit, OnInit, OnDestroy {
   resumeTeaser() {
     this.startTeaser();
   }
+
 
 }

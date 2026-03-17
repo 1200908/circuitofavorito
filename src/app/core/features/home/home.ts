@@ -1,9 +1,23 @@
-import {Component, ElementRef, OnInit, ViewChild, NgZone, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  NgZone,
+  ViewChildren,
+  QueryList,
+  AfterViewInit,
+  OnDestroy
+} from '@angular/core';
 import { CtaComponent } from '../../layout/cta/cta';
 import { PROJETOS } from '../../../data/projects';
 import {NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 @Component({
@@ -13,7 +27,7 @@ import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.di
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class HomeComponent implements OnInit, AfterViewInit{
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
 
   projetos = PROJETOS;
   currentRoute: string = '';
@@ -106,9 +120,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
     return this.carousel.nativeElement.scrollLeft === 0;
   }
   isAtEnd(): boolean {
-    const container = this.carousel.nativeElement;
-    // scrollWidth: total do conteúdo, clientWidth: visível
-    return Math.ceil(container.scrollLeft + container.clientWidth) >= container.scrollWidth;
+    return this.currentIndex === this.projetos.length - 1;
   }
 
   @ViewChildren('slides') slides!: QueryList<ElementRef<HTMLElement>>;
@@ -127,8 +139,208 @@ export class HomeComponent implements OnInit, AfterViewInit{
       });
     }
 
-    // Intervalo para mudar de slide
     setInterval(() => this.showNextSlide(), 5000);
+
+    const mm = gsap.matchMedia();
+    gsap.registerPlugin(ScrollTrigger);
+
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl.from('.hero-welcome', { yPercent: 120, duration: 0.7 })
+      .from('.hero-brand',   { yPercent: 120, duration: 0.9 }, '-=0.5')
+      .from('.hero-slider',  { scale: 1.1, opacity: 0, duration: 1.4 }, '-=0.8')
+      .from('.scroll-hint',  { opacity: 0, y: 10, duration: 0.6 }, '-=0.2');
+
+    gsap.to('.hero-welcome', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      rotation: -8,
+      x: -40,
+      opacity: 0,
+      ease: 'none'
+    });
+
+    gsap.to('.hero-brand', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      rotation: 8,       // roda ao contrário do welcome
+      x: 40,
+      opacity: 0,
+      ease: 'none'
+    });
+  // Slider encolhe e sobe ao scrollar — efeito profissional
+    gsap.to('.hero-slider', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      scale: 0.88,
+      y: -60,
+      borderRadius: '24px',
+      ease: 'none'
+    });
+
+// Título sobe mais rápido que o slider — parallax
+    gsap.to('.hero-content h1', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: -80,
+      ease: 'none'
+    });
+
+    gsap.fromTo('.hero-content p',
+      { y: 20, opacity: 1, filter: 'blur(0px)' },  // estado inicial
+      {
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        },
+        y: 40,
+        opacity: 0,
+        filter: 'blur(10px)',
+        ease: 'none'
+      }
+    );
+
+    gsap.to('.scroll-hint', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: '+=200',        // nos primeiros 200px de scroll
+        scrub: true          // liga diretamente ao scroll
+      },
+      opacity: 0,
+      y: 20,                 // cai ligeiramente para baixo
+      ease: 'none'
+    });
+
+    gsap.fromTo('.about-left p',
+        { x: -60, rotation: -8, opacity: 0 },   // estado inicial (fora do ecrã)
+        {
+          x: 0, rotation: 0, opacity: 1,         // estado do meio (visível)
+          scrollTrigger: {
+            trigger: '.about-teaser',
+            start: 'top 90%',
+            end: 'top 30%',
+            scrub: true
+          },
+          ease: 'none'
+        }
+      );
+
+// Imagem entra da direita
+    gsap.from('.about-right img', {
+      scrollTrigger: {
+        trigger: '.about-teaser',
+        start: 'top 75%',
+      },
+      x: 50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+
+    gsap.to('.about-right img', {
+      scrollTrigger: {
+        trigger: '.about-teaser',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: -80,
+      ease: 'none'
+    });
+
+    gsap.to('.about-badge', {
+      scrollTrigger: {
+        trigger: '.about-teaser',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      },
+      y: -140,
+      x: 60,
+      rotation: 15,
+      ease: 'none'
+    });
+
+    gsap.to('.about-left', {
+      scrollTrigger: {
+        trigger: '.about-teaser',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: -30,
+      ease: 'none'
+    });
+
+    gsap.fromTo('.about-label',
+      { x: -60, rotation: -8, opacity: 0 },   // estado inicial (fora do ecrã)
+      {
+        x: 0, rotation: 0, opacity: 1,         // estado do meio (visível)
+        scrollTrigger: {
+          trigger: '.about-teaser',
+          start: 'top 80%',
+          end: 'center 80%',                // ← só entra até ao centro
+          scrub: true
+        },
+        ease: 'none'
+      }
+    );
+
+
+// About h2 — entra da direita, fica, sai para a esquerda
+    gsap.fromTo('.about-left h2',
+      { x: 60, rotation: 8, opacity: 0 },
+      {
+        x: 0, rotation: 0, opacity: 1,
+        scrollTrigger: {
+          trigger: '.about-teaser',
+          start: 'top 80%',
+          end: 'center 80%',
+          scrub: true
+        },
+        ease: 'none'
+      }
+    );
+
+
+    mm.add("(min-width: 769px)", () => {
+      gsap.fromTo('.hero-slider',
+        { scale: 1 },           // ← começa exatamente em 1, sem esticar
+        {
+          scale: 0.88,
+          y: -60,
+          borderRadius: '24px',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+          }
+        }
+      );
+    });
+
   }
 
   showNextSlide() {
@@ -150,6 +362,9 @@ export class HomeComponent implements OnInit, AfterViewInit{
     });
   }
 
+  ngOnDestroy() {
+    ScrollTrigger.getAll().forEach(t => t.kill());
+  }
 
 
 }

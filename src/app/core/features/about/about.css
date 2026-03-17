@@ -3,9 +3,9 @@
    ============================================= */
 .about-frame {
   border-radius: 15px;         /* bordas arredondadas */
-  padding: 20px;               /* espaço interno */
+  padding: 15px;               /* espaço interno */
   max-width: 1200px;           /* largura máxima opcional */
-  margin: 50px auto;           /* centralizar na página */
+  margin: 0px auto;           /* centralizar na página */
 }
 
 .frame-content {
@@ -53,7 +53,7 @@
 
 /* ---- Content Section (único wrapper) ---- */
 .about-content {
-  padding: 5rem 5% 0;
+  padding: 1rem 5% 0;
 }
 
 .content-wrapper {
@@ -394,6 +394,7 @@
 
 .btn-primary {
   background-color: var(--primary-color);
+  margin: 0 auto;
   color: var(--background-color);
   padding: 0.85rem 2.5rem;
   text-decoration: none;
@@ -402,6 +403,8 @@
   font-size: 1.1rem;
   transition: all 0.3s ease;
   display: inline-block;
+  width: auto;
+  max-width: max-content;
   border: none;
 
 }

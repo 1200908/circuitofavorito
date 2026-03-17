@@ -13,7 +13,7 @@
   <div class="content-wrapper">
 
     <!-- Intro -->
-    <div class="about-section intro-section">
+    <div class="about-section intro-section hidden " appScrollReveal>
       <p class="hidden" appScrollReveal>
         Criada no ano 2015, tem como principal atividade a canalização, climatização, energia solar,
         aspiração central, sistemas de rega, piscinas, bombas submersíveis, entre outros.
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Missão -->
-    <div class="about-section highlight">
+    <div class="about-section highlight hidden " appScrollReveal>
       <h2>A Nossa Missão</h2>
       <div class="mission-grid">
         <div class="mission-item hidden" appScrollReveal>
@@ -76,9 +76,6 @@
       <p>Mais de 60 obras concluídas em todo o país de instalações de canalização a sistemas de energia solar, cada projeto é entregue com rigor e profissionalismo.</p>
       <a (click)="goToProjects()" [class.active]="currentRoute === '/projetos'" class="btn-primary">
         Ver todos os Projectos
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
       </a>
     </div>
 

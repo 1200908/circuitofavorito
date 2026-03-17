@@ -1,6 +1,6 @@
 <section class="page-background">
 <section class="hero">
-  <div class="hero-content hidden" appScrollReveal>
+  <div class="hero-content">
     <h1>
       <span class="hero-welcome">Bem-vindo à</span>
       <span class="hero-brand">Circuito Favorito</span>
@@ -18,7 +18,10 @@
     </div>    <!--<video autoplay muted loop playsinline class="hero-video">
       <source src="assets/est.mp4" type="video/mp4">
     </video>-->
-    <p>Projetos, inovação e soluções que fazem a diferença.</p>
+    <p>
+      Projetos, <em>inovação</em> <br>e soluções
+      que fazem a <strong>diferença.</strong>
+    </p>
 
   </div>
 
@@ -29,10 +32,10 @@
 
 </section>
 <section class="obras hidden" appScrollReveal>
-  <div class="obras-header">
+  <div class="obras-header hidden" appScrollReveal>
     <div class="obras-header-label">Portefólio</div>
     <h2>Projectos</h2>
-    <p class="obras-header-sub">
+    <p class="obras-header-sub hidden" appScrollReveal>
       Conheça o nosso trabalho em todo o país de reabilitações urbanas a novas
       construções, cada obra conta uma história de rigor, detalhe e identidade.
     </p>
@@ -97,7 +100,7 @@
 </section>
 
  <div class="about-teaser-bg">
-  <section class="about-teaser hidden" appScrollReveal>
+  <section class="about-teaser ">
     <div class="about-left">
       <div class="about-label">Quem somos</div>
       <h2>Uma empresa feita de<br><em>rigor e confiança</em></h2>
@@ -113,9 +116,6 @@
       </div>
       <a (click)="goToAbout()" [class.active]="currentRoute === '/about'" class="btn-primary">
         Conhecer a empresa
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
       </a>
     </div>
 
