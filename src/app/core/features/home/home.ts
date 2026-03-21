@@ -218,17 +218,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       ease: 'none'
     });
 
-    gsap.fromTo('.hero-text-bottom',
-      { y: 20, opacity: 1, filter: 'blur(0px)' },  // estado inicial
+    gsap.to('.hero-text-bottom',
       {
         scrollTrigger: {
           trigger: '.hero',
-          start: 'top top',
+          start: 'top+=150 top',
           end: 'bottom top',
           scrub: 1.5
         },
         y: 40,
-        opacity: 0,
         filter: 'blur(10px)',
         ease: 'none'
       }
