@@ -144,12 +144,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
     const mm = gsap.matchMedia();
     gsap.registerPlugin(ScrollTrigger);
 
+    gsap.set('.hero-slider', { scale: 1 });
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.from('.hero-welcome', { yPercent: 120, duration: 0.7 })
       .from('.hero-brand',   { yPercent: 120, duration: 0.9 }, '-=0.5')
-      .from('.hero-slider',  { scale: 1.1, opacity: 0, duration: 1.4 }, '-=0.8')
+      .from('.hero-text-bottom',  { y: 30, opacity: 0, duration: 0.8 }, '-=0.4')
+      .from('.hero-slider',  { scale: 1, opacity: 0, duration: 1.4 }, '-=0.8')
       .from('.scroll-hint',  { opacity: 0, y: 10, duration: 0.6 }, '-=0.2');
 
     gsap.to('.hero-welcome', {
@@ -162,6 +164,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       rotation: -8,
       x: -40,
       opacity: 0,
+      ease: 'none'
+    });
+
+    gsap.to('.hero h1', {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: -80,
       ease: 'none'
     });
 
@@ -187,9 +200,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       },
       scale: 0.88,
       y: -60,
+      filter: 'blur(10px)',
       borderRadius: '24px',
       ease: 'none'
     });
+
 
 // Título sobe mais rápido que o slider — parallax
     gsap.to('.hero-content h1', {
@@ -203,7 +218,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       ease: 'none'
     });
 
-    gsap.fromTo('.hero-content p',
+    gsap.fromTo('.hero-text',
       { y: 20, opacity: 1, filter: 'blur(0px)' },  // estado inicial
       {
         scrollTrigger: {
@@ -218,6 +233,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
         ease: 'none'
       }
     );
+
 
     gsap.to('.scroll-hint', {
       scrollTrigger: {
@@ -341,6 +357,47 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       );
     });
 
+    this.applyTiltEffect('.hero-slider');
+    this.applyTiltEffect('.about-right img');
+    
+
+  }
+
+  // Função reutilizável
+  applyTiltEffect(selector: string) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      const element = el as HTMLElement;
+
+      element.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = element.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+
+        gsap.to(element, {
+          rotateY: dx * 4,
+          rotateX: -dy * 2.5,
+          scale: 1.015,
+          duration: 0.4,
+          ease: 'power2.out',
+          transformPerspective: 800,
+          force3D: true,
+        });
+      });
+
+      element.addEventListener('mouseleave', () => {
+        gsap.to(element, {
+          rotateY: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: 'power3.out',
+          force3D: true,
+        });
+      });
+    });
   }
 
   showNextSlide() {

@@ -3,7 +3,11 @@
   padding: 2rem 1rem 2rem;  /* mais espaço em cima para a logo flutuar */
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  border-top: 1px solid rgba(0,0,0,0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(234, 243, 255, 0.35) 0%,
+    rgba(214, 232, 255, 0.35) 100%
+  );
 
 }
 
@@ -16,6 +20,7 @@
   width: 120px;
   height: 120px;
   display: block;
+  gap: 0.3rem;
 }
 
 .footer-logo-top .footer-logo-img {
@@ -24,9 +29,36 @@
   object-fit: cover;
 }
 
+.footer-logo-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* ← centra o texto */
+  line-height: 1.1;
+}
+
+.footer-logo-title {
+  font-family: 'Montserrat ', sans-serif;
+  font-weight: 500; /* light */
+  letter-spacing: -0.05em; /* aumenta para aproximar do logo */
+  text-transform: uppercase;
+  font-size: 2.2rem;    /* maior */
+  color: #07277B;
+  white-space: nowrap;
+}
+
+.footer-logo-subtitle {
+  font-family:  'Montserrat ', sans-serif;
+  font-weight: 300; /* light */
+  letter-spacing: 0.12em; /* aumenta para aproximar do logo */
+  text-transform: uppercase;
+  font-size: 1.0rem;    /* menor */
+  color: #07277B;
+  white-space: nowrap;
+}
+
 /* Redes sociais */
 .footer-social {
-  margin-top: 40px;  /* dá espaço suficiente abaixo da logo */
+  margin-top: 90px;  /* dá espaço suficiente abaixo da logo */
   margin-bottom: 20px;
 }
 
@@ -43,5 +75,5 @@
 }
 
 .footer-bottom{
-  color: #07277b;
+  color: var(--primary-color);
 }
