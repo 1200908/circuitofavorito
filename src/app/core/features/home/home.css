@@ -12,6 +12,8 @@
   text-align: center;
   padding: 80px 40px 60px;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-content {
@@ -34,6 +36,7 @@
   flex-direction: column;
   align-items: flex-start; /* desktop */
   gap: 2rem;
+  padding: 2rem;
 }
 
 .hero-desc,
@@ -732,31 +735,30 @@ h2 {
 
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 1.5rem;              /* ← um pouco de espaço entre elementos */
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
     grid-template-areas:
-    "titulo"
-    "slider"
-    "desc";
-  }
-
-  /* Partir o hero-text em duas zonas no mobile */
-  .hero-text {
-    text-align: center;
-    display: contents; /* deixa os filhos participar no grid */
+      "slider"
+      "desc";
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .hero-text-bottom {
-    grid-area: desc;
+    grid-area: desc;      /* ← ocupa a área desc */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 1rem;
+    padding: 0;
   }
 
+  .hero-slider {
+    grid-area: slider;    /* ← ocupa a área slider */
+    height: 35svh;
+    min-height: 220px;
+    max-height: 380px;
+  }
   .hero-desc {
     font-size: 1.2rem;
   }

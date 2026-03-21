@@ -218,7 +218,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
       ease: 'none'
     });
 
-    gsap.fromTo('.hero-text',
+    gsap.fromTo('.hero-text-bottom',
       { y: 20, opacity: 1, filter: 'blur(0px)' },  // estado inicial
       {
         scrollTrigger: {
@@ -359,7 +359,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
 
     this.applyTiltEffect('.hero-slider');
     this.applyTiltEffect('.about-right img');
-    
+
 
   }
 
