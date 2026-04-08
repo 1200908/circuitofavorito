@@ -37,21 +37,19 @@
 }
 
 .footer-logo-title {
-  font-family: 'Montserrat ', sans-serif;
-  font-weight: 500; /* light */
-  letter-spacing: -0.05em; /* aumenta para aproximar do logo */
+  font-family:'Exo 2', 'Montserrat ', sans-serif;
   text-transform: uppercase;
-  font-size: 2.2rem;    /* maior */
+  font-weight: 500;      /* mais fina */
+  font-size: 1.9rem;    /* maior */
+  letter-spacing: -2px;
   color: #07277B;
   white-space: nowrap;
 }
 
 .footer-logo-subtitle {
-  font-family:  'Montserrat ', sans-serif;
-  font-weight: 300; /* light */
-  letter-spacing: 0.12em; /* aumenta para aproximar do logo */
+  font-family: 'Exo 2', 'Montserrat ', sans-serif;
+  font-weight: 400;      /* leve */
   text-transform: uppercase;
-  font-size: 1.0rem;    /* menor */
   color: #07277B;
   white-space: nowrap;
 }

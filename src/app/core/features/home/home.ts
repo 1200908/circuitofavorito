@@ -206,43 +206,38 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
     });
 
 
-// Título sobe mais rápido que o slider — parallax
-    gsap.to('.hero-content h1', {
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      },
-      y: -80,
-      ease: 'none'
-    });
 
-    gsap.to('.hero-text-bottom',
+    gsap.fromTo('.hero-text-bottom',
+      { y: 0, opacity: 1 },
       {
+        y: 20,
+        filter: 'blur(1px)',
+        opacity: 0.7,
         scrollTrigger: {
           trigger: '.hero',
-          start: 'top+=150 top',
+          start: 'top top',
           end: 'bottom top',
-          scrub: 1.5
-        },
-        y: 40,
-        filter: 'blur(10px)',
-        ease: 'none'
+          scrub: true
+        }
       }
     );
 
 
-    gsap.to('.scroll-hint', {
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: '+=200',        // nos primeiros 200px de scroll
-        scrub: true          // liga diretamente ao scroll
-      },
-      opacity: 0,
-      y: 20,                 // cai ligeiramente para baixo
-      ease: 'none'
+    tl.call(() => {
+      const scrollHint = document.querySelector('.scroll-hint') as HTMLElement;
+      if (scrollHint) {
+        gsap.to(scrollHint, {
+          opacity: 0,
+          y: 20,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      }
     });
 
     gsap.fromTo('.about-left p',

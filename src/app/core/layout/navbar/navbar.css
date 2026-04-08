@@ -120,7 +120,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .navbar-placeholder {
-    height: 120px; /* mesma altura do navbar */
+    height: 90px; /* mesma altura do navbar */
 
   }
   .navbar {
@@ -145,9 +145,7 @@
   }
 
   .social-links {
-    gap: 1.5rem;
-    font-size: 0.1rem;
-    margin-right: -10px;
+    display: none;
   }
 
   .social-links a{
@@ -160,6 +158,9 @@
   .navbar-image {
     margin-top: 0rem;
 
+  }
+  .nav-links a {
+    padding: 0.1rem 0;
   }
 }
 

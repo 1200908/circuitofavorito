@@ -120,11 +120,13 @@
 /* Filtros */
 .filters {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.1rem;
   background: #fff;
   border: 1.5px solid rgba(7, 39, 123, 0.1);
   border-radius: 12px;
-  padding: 0.3rem;
+  max-width: 100vw;
+  box-sizing: border-box; /* inclui padding e border no cálculo da largura */
+  overflow-x: auto;
 }
 
 .filters button {

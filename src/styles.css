@@ -13,7 +13,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family:  'DM Sans','Montserrat', 'Arial', sans-serif;
+  font-family:  'Exo 2','DM Sans','Montserrat', 'Arial', sans-serif;
 }
 
 
@@ -52,4 +52,5 @@ html, body {
   background-image: url('assets/fundo.png'); /* caminho da tua imagem */
   background-size: 1600px ;               /* ajusta o tamanho do logo */
   background-color: var(--background-color); /* cor de fallback */
+  scroll-margin-top: 100px;
 }

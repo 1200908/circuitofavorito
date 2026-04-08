@@ -293,17 +293,22 @@
 }
 
 .scroll-hint {
-  position: absolute;
-  bottom: 2rem; left: 50%;
+  position: absolute;             /* FIXO para não ser afetado pelo transform do hero */
+  bottom: 1rem;
+  left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 1;               /* acima de tudo */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  opacity: 0.3;
-  animation: fadeUp 1s 1s ease both;
+  cursor: pointer;
+  opacity: 1;
+}
 
+.scroll-hint.hidden-scroll-hint {
+  opacity: 0;
+  pointer-events: none;        /* invisível e não clicável quando escondido */
 }
 .scroll-hint span {
   font-size: 0.85rem;
@@ -354,6 +359,7 @@ h2 {
   text-align: center;
   gap: 0.75rem;
   margin-bottom: 2.5rem;
+  padding: 2rem clamp(1rem, 5%, 3rem);
 }
 
 .obras-header-label {
@@ -438,6 +444,7 @@ h2 {
   scrollbar-width: none;     /* Firefox */
   width: 100%;
   margin: 0 1rem ;
+  border-radius: 10px;
 }
 
 .projects-container::-webkit-scrollbar {
@@ -687,7 +694,7 @@ h2 {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 .about-badge {
@@ -718,6 +725,8 @@ h2 {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     margin-top: 3rem;
+    padding: 2rem clamp(1rem, 5%, 3rem);
+
   }
   .about-badge {
     left: auto;
@@ -729,8 +738,14 @@ h2 {
 @media(max-width: 768px) {
 
   .hero {
-    min-height: 95vh;   /* menor que o ecrã */
-    padding: 40px 15px; /* menos espaço */
+    min-height: 95svh;        /* ocupa sempre o ecrã */
+    justify-content: flex-start;
+    padding: clamp(10px, 12vh, 30px) 20px clamp(10px, 8vh, 80px);
+    gap: clamp(0.15rem, .5vh, 1rem);
+
+  }
+
+  .hero-tagline{
   }
 
   .hero-content {
@@ -738,7 +753,7 @@ h2 {
     grid-template-areas:
       "slider"
       "desc";
-    gap: 1.5rem;
+    gap: clamp(0.15rem, 1vh, 2rem);
     max-width: 500px;
     margin: 0 auto;
   }
@@ -749,13 +764,13 @@ h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1rem;
-    padding: 0;
+    gap: clamp(0.15rem, 2vh, 5rem);
+    padding: clamp(0.5rem, 2vh, 2rem);
   }
 
   .hero-slider {
     grid-area: slider;    /* ← ocupa a área slider */
-    height: 35svh;
+    height: clamp(260px, 40vh, 520px);
     min-height: 220px;
     max-height: 380px;
   }
@@ -819,23 +834,14 @@ h2 {
     padding: 20px 10px;
   }
 }
-@media (min-width: 769px) and (max-width: 1024px) {
-  .hero {
-    min-height: unset;   /* ← remove o min-height */
-    padding: 60px 30px;
+
+
+@media(max-width: 385px) {
+
+  .hero-tagline {
+    display: none;
   }
 }
-
-@media (max-width: 400px) {
-  .hero {
-    padding: 30px 15px 40px;
-  }
-
-  .hero-content {
-    gap: .1rem;
-  }
-}
-
 
 ::ng-deep app-cta.home-cta .cta-section {
   background: transparent;
