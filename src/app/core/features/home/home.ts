@@ -9,7 +9,6 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
-import { CtaComponent } from '../../layout/cta/cta';
 import { PROJETOS } from '../../../data/projects';
 import {NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -23,7 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CtaComponent, CommonModule, RouterModule, ScrollRevealDirective],
+  imports: [ CommonModule, RouterModule, ScrollRevealDirective],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -408,6 +407,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy{
   goToAbout() {
     this.router.navigate(['/about']).then(() => {
       const el = document.querySelector('.page-background');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  goToNextSection() {
+    this.router.navigate(['/']).then(() => {
+      const el = document.querySelector('.obras');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   }

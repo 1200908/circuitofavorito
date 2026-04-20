@@ -124,14 +124,27 @@
 
   }
   .navbar {
-    padding: .5rem 5%;
-    flex-wrap: wrap;
+    flex-direction: column; /* 🔥 muda tudo */
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 15px;
   }
 
-  .navbar a{
-    margin-right: 10px;
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .nav-links li {
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-align: center;
   }
 
   .logo-text{
@@ -139,7 +152,7 @@
   }
 
   .nav-links {
-    gap: 1.1rem;
+    gap: 5.1rem;
     margin-right: 10px;
     cursor: auto;
   }
@@ -164,10 +177,9 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 390px) {
   .nav-links {
-    gap: .6rem;
-    margin-left: auto;
+    gap: 3.7rem;
     margin-right: 10px;
   }
 }

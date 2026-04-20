@@ -36,7 +36,6 @@
 }
 
 .hero-content h1 {
-  font-family: 'Syne', sans-serif;
   font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 900;
   color: var(--secondary-color  );
@@ -46,7 +45,6 @@
 }
 
 .hero-content p {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   color: var(--text-color);
   font-weight: 400;
@@ -138,7 +136,6 @@
   border-radius: 9px;
   padding: 0.5rem 1rem;
   color: var(--secondary-color);
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -173,7 +170,6 @@
 
 /* Resultados */
 .results-label {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.78rem;
   color: var(--secondary-color);
   text-transform: uppercase;
@@ -253,7 +249,6 @@
 }
 
 .card-body h3 {
-  font-family: 'Syne', sans-serif;
   font-size: 0.97rem;
   font-weight: 700;
   color: var(--text-color);
@@ -262,7 +257,6 @@
 }
 
 .card-subtitle {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.76rem;
   color: var(--secondary-color);
   opacity: 0.6;
@@ -281,14 +275,12 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.76rem;
   color: var(--secondary-color);
   opacity: 0.75;
 }
 
 .desc {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.83rem;
   color: var(--secondary-color);
   line-height: 1.7;
@@ -315,7 +307,6 @@
 }
 
 .empty-state p {
-  font-family: 'DM Sans', sans-serif;
   font-size: 1rem;
   color: var(--secondary-color);
   margin-bottom: 1.5rem;
@@ -327,7 +318,6 @@
   border: none;
   border-radius: 10px;
   padding: 0.7rem 1.8rem;
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -341,7 +331,6 @@
 
 /* Hero eyebrow + decoração */
 .hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -371,7 +360,6 @@
 
 /* Subtítulo separado no card */
 .card-subtitle {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.78rem;
   color: var(--secondary-color);
   opacity: 0.6;
@@ -392,7 +380,6 @@
 }
 .project-card:hover .card-overlay { opacity: 1; }
 .overlay-cta {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
@@ -436,14 +423,12 @@
   opacity: 0.5;
 }
 .empty-state h3 {
-  font-family: 'Syne', sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 .empty-state p {
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   color: var(--secondary-color);
   margin-bottom: 1.5rem;

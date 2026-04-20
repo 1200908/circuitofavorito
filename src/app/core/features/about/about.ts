@@ -1,6 +1,5 @@
 import {Component, OnInit, AfterViewInit, ElementRef, OnDestroy, NgZone, ChangeDetectorRef} from '@angular/core';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
-import { CtaComponent } from '../../layout/cta/cta';
 import { PROJETOS } from '../../../data/projects';
 import {Router, RouterLink, RouterLinkActive,} from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-about',
-  imports: [ScrollRevealDirective, CtaComponent, RouterLink, CommonModule],
+  imports: [ScrollRevealDirective, RouterLink, CommonModule],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

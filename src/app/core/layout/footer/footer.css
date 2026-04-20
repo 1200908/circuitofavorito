@@ -3,11 +3,8 @@
   padding: 2rem 1rem 2rem;  /* mais espaço em cima para a logo flutuar */
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  background: linear-gradient(
-    180deg,
-    rgba(234, 243, 255, 0.35) 0%,
-    rgba(214, 232, 255, 0.35) 100%
-  );
+  background: var(--background-color);
+  border-top: 1px solid rgba(0,0,0,0.2);
 
 }
 
@@ -23,11 +20,13 @@
   gap: 0.3rem;
 }
 
-.footer-logo-top .footer-logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .footer-logo-top .footer-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+
 
 .footer-logo-texts {
   display: flex;

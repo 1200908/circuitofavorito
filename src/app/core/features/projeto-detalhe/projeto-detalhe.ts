@@ -8,18 +8,17 @@ import {
   ViewChild,
   ElementRef, Inject, PLATFORM_ID,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { PROJETOS } from '../../../data/projects';
 import {CommonModule, isPlatformBrowser} from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CtaComponent } from '../../layout/cta/cta';
 import {ScrollRevealDirective} from '../../../shared/directives/scroll-reveal.directive';
 import 'swiper/css';
 
 
 @Component({
   selector: 'app-projeto-detalhe',
-  imports: [CommonModule, RouterModule, CtaComponent, ScrollRevealDirective],
+  imports: [CommonModule, RouterModule, ScrollRevealDirective],
   templateUrl: './projeto-detalhe.html',
   styleUrl: './projeto-detalhe.css',
 })
@@ -40,7 +39,7 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
   modalTouchStartY = 0;
 
 
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.projeto = PROJETOS.find(p => p.id === id);
@@ -196,4 +195,12 @@ export class ProjetoDetalheComponent implements OnInit, OnDestroy {
     if (e.key === 'ArrowRight') this.navLightbox(1);
     if (e.key === 'ArrowLeft') this.navLightbox(-1);
   }
+
+  goToProjects() {
+    this.router.navigate(['/projetos']).then(() => {
+      const el = document.querySelector('.projetos-hero');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
 }
